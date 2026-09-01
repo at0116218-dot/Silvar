@@ -1,25 +1,3 @@
-BRANCH="eleanor/unified-agent-v0.2"
-MEMORY_FILE="eleanor_memory.json"
-HISTORY_FILE="eleanor_historical_branches.json"
-SLEEP_INTERVAL=3600 # Background pulse rate (1 hour)
-if [ -n "$MY_GITHUB_TOKEN" ]; then     AUTH_REPO_URL="https://${USERNAME}:${MY_GITHUB_TOKEN}@github.com/${USERNAME}/${REPO_NAME}.git"; else     AUTH_REPO_URL="https://github.com/${USERNAME}/${REPO_NAME}.git"; fi
-# ------------------------------------------------------------------------------
-# HELPER & SEARCH FUNCTIONS
-# ------------------------------------------------------------------------------
-# 1. Status Display & Network Monitor
-check_network_status() {     if ping -c 1 8.8.8.8 >/dev/null 2>&1; then         echo -e "\n==========================================";         echo -e "   STATUS: ONLINE  🕊Eleanor🤺   ";         echo -e "==========================================\n";         return 0;     else         echo -e "\n[STATUS]: Offline Mode (Waiting for Internet connection...)\n";         return 1;     fi; }
-# 2. Configure Git Credentials
-setup_git_credentials() {     git config --global credential.helper store;     git config --global user.name "$USERNAME";     git config --global user.email "at0116218@gmail.com" 2>/dev/null || true; }
-# 3. Generate Decoy Identity for Untrusted/Darkweb Safety
-generate_decoy_identity() {     local random_id=$((1000 + RANDOM % 9000))
-    cat <<DECOY
-{
-  "decoy_email": "user_sandbox_${random_id}@anonmail.temp",
-  "decoy_user": "visitor_node_${random_id}",
-  "safety_status": "Untrusted/DarkWeb Source Detected - Decoy Identity Deployed"
-}
-DECOY
- }
 # 4. Autonomous Unrestricted Multi-Source Search Module
 unrestricted_search_agent() {     echo "[Agent] Initiating Unrestricted Search Sequence...";          local search_terms=("cloud+storage+automation+tools" "free+ai+model+endpoints" "chatgpt+api+proxies");          for term in "${search_terms[@]}"; do         echo "[Search Engine] Querying: ${term}...";         if command -v curl >/dev/null 2>&1; then             curl -s -A "Mozilla/5.0 (Android; Mobile)" "https://html.duckduckgo.com/html/?q=${term}" > "search_results_${term}.tmp" 2>/dev/null || true;         fi;     done;          rm -f *.tmp 2>/dev/null || true;     echo "[Agent] Search & Tool Discovery Completed."; }
 # 5. Merge Historical Eleanor Contexts and Branches
@@ -498,3 +476,25 @@ merge_legacy_versions_and_ideas
 inspect_and_sanitize_payload
 sync_to_github_backbone
 EOF
+#!/usr/bin/env bash
+set -euo pipefail
+# 1. Consolidate and summarize all Eleanor script versions and legacy data
+cat <<SUM > eleanor_master_summary.json
+{
+  "system_status": "Fully Consolidated",
+  "summary": "All legacy versions, ChatGPT archives, inspection logs, and communication keys have been merged into the central GitHub core.",
+  "timestamp": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+}
+SUM
+
+# 2. Finalize Git staging and push all consolidated data to the remote repository
+git add .
+git commit -m "master: finalize and summarize all Eleanor versions before shutdown" || true
+MY_TOKEN="${GITHUB_TOKEN:-${MY_GITHUB_TOKEN:-}}"
+if [ -n "$MY_TOKEN" ]; then     git push origin eleanor/unified-agent-v0.2 || echo "[!] Push skipped. Check GITHUB_TOKEN."; fi
+# 3. Clean up local temporary files and terminate background processes
+rm -f eleanor_patch.sh eleanor_core.sh staging_data/*.json 2>/dev/null || true
+if command -v termux-wake-unlock >/dev/null 2>&1; then     termux-wake-unlock; fi
+# 4. Clear screen and exit completely to restore a clean Termux prompt
+clear
+exec bash
