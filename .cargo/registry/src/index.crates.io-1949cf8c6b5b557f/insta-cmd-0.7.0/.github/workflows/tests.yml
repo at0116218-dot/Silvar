@@ -1,0 +1,44 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test-latest:
+    name: Test on Latest Linux
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          override: true
+      - name: Test
+        run: make test
+
+  test-latest-windows:
+    name: Test on Latest Windows
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          override: true
+      - name: Test
+        run: make test
+
+  check-msrv:
+    name: Check on MSRV
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: baptiste0928/cargo-install@v3
+        with:
+          crate: cargo-msrv
+      - name: Verify minimum rust version
+        run: make check-msrv

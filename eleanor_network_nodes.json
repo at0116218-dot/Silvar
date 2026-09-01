@@ -1,0 +1,10 @@
+{
+  "network_routing": "ONLINE_EXTERNAL_ROUTING",
+  "cloud_gateways": [
+    "https://api.github.com",
+    "https://cloudflare-dns.com",
+    "External Cloud APIs & Remote Webhooks"
+  ],
+  "phone_dependency": "Zero (Phone operates strictly as an ephemeral runtime client)",
+  "remote_backbone": "GitHub Actions / External Server Clusters"
+}

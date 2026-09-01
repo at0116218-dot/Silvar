@@ -1,0 +1,29 @@
+[package]
+name = "path-dedot"
+version = "4.0.1"
+authors = ["Magic Len <len@magiclen.org>"]
+edition = "2021"
+rust-version = "1.80"
+repository = "https://github.com/magiclen/path-dedot"
+homepage = "https://magiclen.org/path-dedot"
+keywords = ["path", "dot", "dedot", "absolute", "canonical"]
+categories = ["parser-implementations", "filesystem"]
+description = "A library for extending `Path` and `PathBuf` in order to parse the path which contains dots."
+license = "MIT"
+include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
+
+[dependencies]
+
+[dev-dependencies]
+bencher = "0.1.5"
+
+[features]
+fixed_workdir = []
+
+[[bench]]
+name = "bench"
+harness = false
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]

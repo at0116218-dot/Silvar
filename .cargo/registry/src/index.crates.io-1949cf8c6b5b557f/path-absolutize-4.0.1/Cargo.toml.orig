@@ -1,0 +1,33 @@
+[package]
+name = "path-absolutize"
+version = "4.0.1"
+authors = ["Magic Len <len@magiclen.org>"]
+edition = "2021"
+rust-version = "1.80"
+repository = "https://github.com/magiclen/path-absolutize"
+homepage = "https://magiclen.org/path-absolutize"
+keywords = ["path", "dot", "dedot", "absolute", "canonical"]
+categories = ["parser-implementations", "filesystem"]
+description = "A library for extending `Path` and `PathBuf` in order to get an absolute path and remove the containing dots."
+license = "MIT"
+include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
+
+[dependencies]
+path-dedot = "4.0.1"
+
+[dev-dependencies]
+bencher = "0.1.5"
+
+[target.'cfg(windows)'.dev-dependencies]
+slash-formatter = "3"
+
+[features]
+fixed_workdir = ["path-dedot/fixed_workdir"]
+
+[[bench]]
+name = "bench"
+harness = false
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
