@@ -1,0 +1,8 @@
+# Ignore typical virtualenv/build artifacts
+.venv/
+__pycache__/
+.pytest_cache/
+dist/
+build/
+*.egg-info/
+.eleanor_state/
